@@ -14,6 +14,40 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attribute) {
+  this.createdAt = attribute.createdAt;
+  this.dimensions = attribute.dimensions;
+
+}
+
+
+GameObject.prototype.destroy= function() {
+  return `${this.name} was removed from the game`;
+}
+
+function CharStats(cattribute) {
+  GameObject.call(this,cattribute)
+  this.healthPoints = cattribute.healthPoints;
+  this.name = cattribute.name;
+}
+
+CharStats.prototype = Object.create(GameObject.prototype);
+CharStats.prototype.takeDamage = function () {
+  return `${this.name} took damage!`; 
+}
+
+function Humanoid(hattribute) {
+  CharStats.call(this, hattribute);
+
+  this.team = hattribute.team;
+  this.weapons = hattribute.weapons;
+  this.language = hattribute.language;
+}
+
+Humanoid.prototype = Object.create(CharStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} Hey there ! ${this.language}`
+}
 
 /*
   === CharacterStats ===
@@ -41,7 +75,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +136,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+// */
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
